@@ -21,6 +21,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         Intent rcv = getIntent();
         songName = rcv.getStringExtra("keySong");
         txtSongName.setText(songName);
+
+        btnPlay.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
     }
 
 
@@ -35,9 +38,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int id = view.getId();
         if(id == R.id.buttonPlay){
-
+            Intent intent = new Intent(PlayActivity.this,MyMusicService.class);
+            intent.putExtra("keySong",songName);
+            startService(intent);
         }else{
-
+            Intent intent = new Intent(PlayActivity.this,MyMusicService.class);
+            stopService(intent);
         }
     }
 }
